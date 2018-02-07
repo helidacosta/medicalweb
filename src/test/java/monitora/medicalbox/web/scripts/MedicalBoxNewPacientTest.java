@@ -44,11 +44,11 @@ public class MedicalBoxNewPacientTest {
 		//wait = new WebDriverWait(driver,5);
 		
 
-		driver.get("https://uat.medicalbox.com.br/");
+		driver.get("https://qa.medicalbox.com.br/");
 		driver.manage().window().maximize();
 		
 		LoginPageObject login = new LoginPageObject(driver);
-		login.fillEmailLogin("helidalu.oliveira@gmail.com");
+		login.fillEmailLogin("helida@teste.com");
 		login.fillPasswordLogin("1234");
 		login.clickBtnLogin();
 	}
@@ -97,13 +97,12 @@ public class MedicalBoxNewPacientTest {
 				newpacient.filltxtSpeakwith(patient.getSpeak());
 				
 				//Adress
-				newpacient.fillAddress(patient.getCep(), "Brasil", patient.getState(), patient.getCity(), patient.getNeighborhood(), patient.getAddress());
-				new WebDriverWait(driver, 2);
-				newpacient.filltxtNumber(patient.getNumber());
-				newpacient.filltxtComplement(patient.getComplement());
+				newpacient.fillAddress(patient.getCep(), "Brasil", patient.getState(), patient.getCity(), patient.getNeighborhood(), patient.getAddress(), patient.getNumber(), patient.getComplement());
+				//newpacient.filltxtNumber(patient.getNumber());
+				//newpacient.filltxtComplement(patient.getComplement());
 				
 				//More Information
-				newpacient.filltxObs(patient.getObs());
+				newpacient.filltxtObs(patient.getObs());
 						
 				newpacient.clickBtnSalvePacient();
 				//assertEquals("Concluído!", pacients.gettxtmessageSuccess());

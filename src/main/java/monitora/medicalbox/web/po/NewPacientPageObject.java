@@ -95,7 +95,7 @@ public class NewPacientPageObject {
 	WebElement txtComplement;
 	
 	//Observation
-	@FindBy(xpath = "//div[contains(@ng-if,'Dados gerais')]//textarea[@name='observation']")
+	@FindBy(xpath = "//div[contains(@ng-if,'Dados gerais')]//div[@name='observation']")
 	WebElement txtObservation;
 	
 	//Botão Salvar
@@ -140,7 +140,8 @@ public class NewPacientPageObject {
 	}
 	
 	public void fillCpfPacient(String cpf) {
-		txtCpfPacient.sendKeys(cpf);
+		Integer cpflength = cpf.length();
+		if (cpflength.equals(11))txtCpfPacient.sendKeys(cpf);
 	}
 	
 	public void fillProfessionPacient(String profession) {
@@ -169,7 +170,7 @@ public class NewPacientPageObject {
 	}
 	
 	//Address
-	public void fillAddress(String cep, String country, String state, String city, String neighborhood, String address) {
+	public void fillAddress(String cep, String country, String state, String city, String neighborhood, String address, String number, String complement) {
 	
 		if (cep.equals("")){
 			txtCountry.sendKeys(country);
@@ -180,21 +181,25 @@ public class NewPacientPageObject {
 		}else
 		if(cep != "") {
 				txtCEP.sendKeys(cep);
-				Utils.waitForSplashInvisibility();
+				//Utils.waitForSplashInvisibility();
+				try {Thread.sleep(2000);}catch(Exception e) {e.printStackTrace();}
 		}
+		
+		txtNumber.sendKeys(number);
+		txtComplement.sendKeys(complement);
 	}
 		
 	public void filltxtNumber(String number) {
-		txtNumber.sendKeys(number);
+		//txtNumber.sendKeys(number);
 	}
 		
 	public void filltxtComplement(String complement) {
-		txtComplement.sendKeys(complement);
+		//txtComplement.sendKeys(complement);
 	}
 	
 	//MoreInformation
-	public void filltxObs(String obs) {
-		txtObservation.sendKeys(obs);;
+	public void filltxtObs(String obs) {
+		txtObservation.sendKeys(obs);
 	}
 	
 	//Salve Button

@@ -7,6 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 public class Reader{
 
     private String path;
@@ -67,8 +69,11 @@ public class Reader{
 //                "Obs= " + patient[17] + " , getobs=" + test.getObs() +
 //                		
 //                		"]");
-               //System.out.println(test.toString());
-               
+              // System.out.println(test.toString());
+                
+               // System.out.println("patient ["+"Numero= " + patient[12] + " , getnumber=" + test.getNumber() + "]" );
+                //System.out.println("CPF: " + test.getCpf().length() );
+               // System.out.print(StringEscapeUtils.escapeJava(test.getObs()));
             }
         } catch (Exception e) {
             e.printStackTrace();

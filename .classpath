@@ -32,8 +32,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/helida/Documents/Development/Extensões/java-client-5.0.4.jar"/>
-	<classpathentry kind="lib" path="/home/helida/Documents/Development/Extensões/selenium-server-standalone-3.7.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="/home/helida/Documents/development/drivers/selenium-server-standalone-3.8.1.jar"/>
+	<classpathentry kind="lib" path="/home/helida/Documents/development/drivers/java-client-5.0.4-sources.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
