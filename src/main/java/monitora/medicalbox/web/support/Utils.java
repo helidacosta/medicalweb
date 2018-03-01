@@ -13,6 +13,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -34,8 +35,13 @@ public class Utils {
 	                case "Windows" :  path ="\\src\\main\\resources\\chromedriver.exe"; break;
 	                default: throw new Exception();
 	            }
+	            DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+	            ChromeOptions options = new ChromeOptions();
+	            options.addArguments("--incognito");
+	            capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 	            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+ path);
-	            driver = new ChromeDriver();         
+	            driver = new ChromeDriver(capabilities);
+	                    
 	        }
 	        return driver;
 	    }

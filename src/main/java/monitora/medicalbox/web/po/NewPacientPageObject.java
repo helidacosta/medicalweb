@@ -95,7 +95,7 @@ public class NewPacientPageObject {
 	WebElement txtComplement;
 	
 	//Observation
-	@FindBy(xpath = "//div[contains(@ng-if,'Dados gerais')]//div[@name='observation']")
+	@FindBy(xpath = "//div[contains(@ng-if,'Dados gerais')]//textarea[@name='observation']")
 	WebElement txtObservation;
 	
 	//Botão Salvar

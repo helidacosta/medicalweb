@@ -69,9 +69,9 @@ public class Reader{
 //                "Obs= " + patient[17] + " , getobs=" + test.getObs() +
 //                		
 //                		"]");
-              // System.out.println(test.toString());
+              //System.out.println(test.toString());
                 
-               // System.out.println("patient ["+"Numero= " + patient[12] + " , getnumber=" + test.getNumber() + "]" );
+               //System.out.println("patient ["+"Numero= " + patient[12] + " , getnumber=" + test.getNumber() + "]" );
                 //System.out.println("CPF: " + test.getCpf().length() );
                // System.out.print(StringEscapeUtils.escapeJava(test.getObs()));
             }
@@ -81,7 +81,7 @@ public class Reader{
         return list;
     }
     public static void main(String[] args) {
-        String csvFile = "src/main/resources/planilha/Contato pacientes_less.csv";
+        String csvFile = "src/main/resources/planilha/Pacientes_Barizza_Prontos.csv";
         String line = "";
         String cvsSplitBy = ";";
         Reader reader = new Reader(csvFile, cvsSplitBy, line);

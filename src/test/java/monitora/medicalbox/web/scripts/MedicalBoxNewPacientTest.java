@@ -11,6 +11,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.html5.LocalStorage;
+import org.openqa.selenium.html5.WebStorage;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -27,7 +29,7 @@ public class MedicalBoxNewPacientTest {
 	
 	private WebDriver driver;
 	private Wait wait;
-    private String csvFile = "src/main/resources/planilha/Contato pacientes_less.csv";
+    private String csvFile = "src/main/resources/planilha/Pacientes_Barizza_Prontos.csv";
     private String line = "";
     private String cvsSplitBy = ";";
 	
@@ -44,12 +46,12 @@ public class MedicalBoxNewPacientTest {
 		//wait = new WebDriverWait(driver,5);
 		
 
-		driver.get("https://qa.medicalbox.com.br/");
+		driver.get("https://app.medicalbox.com.br/");
 		driver.manage().window().maximize();
 		
 		LoginPageObject login = new LoginPageObject(driver);
-		login.fillEmailLogin("helida@teste.com");
-		login.fillPasswordLogin("1234");
+		login.fillEmailLogin("Importacao@medicalbox.com.br");
+		login.fillPasswordLogin("123456");
 		login.clickBtnLogin();
 	}
 	
@@ -74,7 +76,6 @@ public class MedicalBoxNewPacientTest {
 		
 		try {
 			List<Patient> pacientes = reader.readCsv();
-			System.out.println(pacientes.size());
 			for(Patient patient:pacientes) {
 				pacients.clickBtnNewPacient();
 				newpacient.clickExpandirData();
@@ -108,6 +109,10 @@ public class MedicalBoxNewPacientTest {
 				//assertEquals("Concluído!", pacients.gettxtmessageSuccess());
 				Utils.waitForSuccessMessage();
 				System.out.println("Paciente cadastrado com sucesso: " + patient.getName());
+				
+				//LocalStorage local = ((WebStorage) driver).getLocalStorage();
+				//local.clear();
+				
 			}
             
         } catch (Exception e) {
