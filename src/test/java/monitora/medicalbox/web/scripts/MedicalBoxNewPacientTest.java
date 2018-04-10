@@ -1,27 +1,12 @@
 package monitora.medicalbox.web.scripts;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
-import org.openqa.selenium.html5.LocalStorage;
-import org.openqa.selenium.html5.WebStorage;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import monitora.medicalbox.web.support.Patient;
 import monitora.medicalbox.web.support.Reader;
@@ -47,34 +32,53 @@ public class MedicalBoxNewPacientTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//wait = new WebDriverWait(driver,5);
 		driver.get("https://qa.medicalbox.com.br/");
 		driver.manage().window().maximize();
 		
 		LoginPageObject login = new LoginPageObject(driver);
-		login.fillEmailLogin("adm_1@ah.com");
+		login.fillEmailLogin("helidalu.oliveira@gmail.com");
 		login.fillPasswordLogin("1234");
 		login.clickBtnLogin();
+		
 	}
 	
 	@After
 	public void tearDown() {
-		driver.quit();
+		//driver.quit();
 	}
 	
 	@Test
 	public void testPacients() {
-		
+				
 	    MainScreenPageObject mainscreen = new MainScreenPageObject(driver);
-		mainscreen.clickBtnPacients();
-
+	    mainscreen.clickBtnPacients();
+		
 		PacientPageObject pacients = new PacientPageObject(driver);
 		NewPacientPageObject newpacient = new NewPacientPageObject(driver);
 		
 		Reader reader = new Reader(csvFile, cvsSplitBy, line);
+		int count = 0;
 		try {
 			List<Patient> pacientes = reader.readCsv();
 			for(Patient patient:pacientes) {
+				if(count >= 10) {
+					driver.manage().deleteAllCookies();
+					driver.get("https://qa.medicalbox.com.br/");
+					driver.manage().window().maximize();
+					
+					LoginPageObject login = new LoginPageObject(driver);
+					login.fillEmailLogin("helidalu.oliveira@gmail.com");
+					login.fillPasswordLogin("1234");
+					login.clickBtnLogin();
+					
+					mainscreen = new MainScreenPageObject(driver);
+					mainscreen.clickBtnPacients();
+					
+					//PacientPageObject pacients = new PacientPageObject(driver);
+					newpacient = new NewPacientPageObject(driver);
+					
+					count = 0;
+				}
 				pacients.clickBtnNewPacient();
 				newpacient.clickExpandirData();
 				
@@ -113,25 +117,14 @@ public class MedicalBoxNewPacientTest {
 				
 				Utils.waitForSuccessMessage();
 				System.out.println("Paciente cadastrado com sucesso: " + patient.getName());
-				System.out.println("Free memory: " + Runtime.getRuntime().freeMemory());
-				Runtime.getRuntime().gc();
-				System.out.println("Free memory after garbage collecion: " + Runtime.getRuntime().freeMemory());
-				
-				
+								
+				count++;
 				}	
 			
-		          
-        } catch (Exception e) {
+		    } catch (Exception e) {
             e.printStackTrace();
         }
 		
-	}
-	
-	private void clearAllBrowserData() {
-		driver.manage().deleteAllCookies();
-		((WebStorage) driver).getSessionStorage().clear();
-		((WebStorage) driver).getLocalStorage().clear();
-//		WebDriver.execute_script('window.localStorage.clear();')
 	}
 	
 }

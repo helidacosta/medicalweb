@@ -1,30 +1,18 @@
 package monitora.medicalbox.web.support;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Arrays;
-import java.util.Properties;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.junit.Assert.assertTrue;
 
 public class Utils {
 	
@@ -33,7 +21,7 @@ public class Utils {
 		public static WebDriver initDriver() throws Exception{
 	       if(driver == null){
 	    	   
-	     
+	           
 	    	   // Adicione as opções do Google Chrome. 
 	    	    DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 	    	    ChromeOptions options = new ChromeOptions();
@@ -47,7 +35,7 @@ public class Utils {
 	    	    // Adicione as opções do Firefox. 
 	            System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/src/main/resources/geckodriver");
 	            driver = new FirefoxDriver();
-	             */
+	            */ 
 	        }
 	        return driver;
 	    }
