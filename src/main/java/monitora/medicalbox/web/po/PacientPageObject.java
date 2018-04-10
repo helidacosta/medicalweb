@@ -17,8 +17,9 @@ public class PacientPageObject
 	@FindBy(xpath = "//div[@class='dataTables_filter']//button")
 	WebElement btnNewPacient;
 	
+	//ConcluidoMsg
 	@FindBy(xpath = "//div[@class='noty_bar noty_type_success']")
-	WebElement messageSuccess;
+	WebElement txtSuccess;
 	
 	public PacientPageObject(WebDriver driver) {
 		PageFactory.initElements(driver, this);
@@ -30,6 +31,6 @@ public class PacientPageObject
 	}
 
 	public String gettxtmessageSuccess() {
-		return messageSuccess.getText();
+		return txtSuccess.getText();
 	}
 }

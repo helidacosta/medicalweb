@@ -102,7 +102,10 @@ public class NewPacientPageObject {
 	@FindBy(xpath = "//div[@ng-show='showAll']//button[contains(text(),'Salvar')]")
 	WebElement btnSalvePacient;
 	
-
+	//ConcluidoMsg
+	@FindBy(xpath = "//div[@class='noty_bar noty_type_error']")
+	WebElement txtErrorCPF;
+	
 	public NewPacientPageObject(WebDriver driver) {
 		PageFactory.initElements(driver, this);
 	}
@@ -171,6 +174,7 @@ public class NewPacientPageObject {
 	
 	//Address
 	public void fillAddress(String cep, String country, String state, String city, String neighborhood, String address, String number, String complement) {
+	Integer ceplength = cep.length();
 	
 		if (cep.equals("")){
 			txtCountry.sendKeys(country);
@@ -179,7 +183,7 @@ public class NewPacientPageObject {
 			txtNeighborhood.sendKeys(neighborhood);
 			txtAddress.sendKeys(address);
 		}else
-		if(cep != "") {
+		if(ceplength.equals(8) && cep != ""){
 				txtCEP.sendKeys(cep);
 				//Utils.waitForSplashInvisibility();
 				try {Thread.sleep(2000);}catch(Exception e) {e.printStackTrace();}
@@ -207,4 +211,9 @@ public class NewPacientPageObject {
 		btnSalvePacient.click();
 		Utils.waitForSplashInvisibility();
 	}
+	
+	public String gettxtmessageSuccess() {
+		return txtErrorCPF.getText();
+	}
+	
 }

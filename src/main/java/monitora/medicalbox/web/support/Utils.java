@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Properties;
 
 import org.openqa.selenium.By;
@@ -14,6 +15,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -21,27 +24,30 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.junit.Assert.assertTrue;
 
 public class Utils {
 	
     private static WebDriver driver = null;
 
 		public static WebDriver initDriver() throws Exception{
-	        if(driver == null){
-	            String path;
-	            switch(System.getProperty("os.name").split(" ")[0]){
-	                case "Mac" :  path ="./src/main/resources/mac_chromedriver"; break;
-	                case "Linux" :  path ="/src/main/resources/chromedriver"; break;
-	                case "Windows" :  path ="\\src\\main\\resources\\chromedriver.exe"; break;
-	                default: throw new Exception();
-	            }
-	            DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-	            ChromeOptions options = new ChromeOptions();
-	            options.addArguments("--incognito");
-	            capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-	            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+ path);
+	       if(driver == null){
+	    	   
+	     
+	    	   // Adicione as opções do Google Chrome. 
+	    	    DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+	    	    ChromeOptions options = new ChromeOptions();
+	    	    capabilities.setCapability(CapabilityType.ForSeleniumServer.ENSURING_CLEAN_SESSION, true);
+	    	    capabilities.setCapability("chrome.switches", Arrays.asList("--incognito"));
+	    	    capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+	            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/main/resources/chromedriver");
 	            driver = new ChromeDriver(capabilities);
-	                    
+	           
+	       	    /*	   
+	    	    // Adicione as opções do Firefox. 
+	            System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/src/main/resources/geckodriver");
+	            driver = new FirefoxDriver();
+	             */
 	        }
 	        return driver;
 	    }
@@ -63,9 +69,9 @@ public class Utils {
 	            .ignoring(NoSuchElementException.class);
 
 	public static void waitForSplashInvisibility(){
-	        By loadIconLocator = By.xpath("//img[@src='/assets/images/mbloading.svg']");
-	        ExpectedCondition expectedCondition = ExpectedConditions.invisibilityOfElementLocated(loadIconLocator);
-	        fluentWaitByExpectedCondition(expectedCondition);
+	    By loadIconLocator = By.xpath("//img[@src='/assets/images/mbloading.svg']");
+	    ExpectedCondition expectedCondition = ExpectedConditions.invisibilityOfElementLocated(loadIconLocator);
+	    fluentWaitByExpectedCondition(expectedCondition);
 	    }
 	
 	public static void waitForSuccessMessage(){
@@ -73,9 +79,11 @@ public class Utils {
         ExpectedCondition expectedCondition = ExpectedConditions.invisibilityOfElementLocated(loadIconLocator);
         fluentWaitByExpectedCondition(expectedCondition);
     }
-
+	
 	private static void fluentWaitByExpectedCondition(ExpectedCondition waitCondition) {
 	    wait.until(waitCondition);
 	}
+	
+	
 
 }
