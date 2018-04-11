@@ -12,6 +12,9 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
+
+import monitora.medicalbox.web.po.LoginPageObject;
+
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class Utils {
@@ -50,6 +53,16 @@ public class Utils {
 			}
 		return driver;
 	}
+	
+	public static void login(WebDriver driver){
+		driver.get("https://qa.medicalbox.com.br/");
+		driver.manage().window().maximize();
+		
+		LoginPageObject login = new LoginPageObject(driver);
+		login.fillEmailLogin("helidalu.oliveira@gmail.com");
+		login.fillPasswordLogin("1234");
+		login.clickBtnLogin();
+    }
 		
 	private static Wait wait = new FluentWait(getDriverInstance())
 	            .withTimeout(30, SECONDS)
@@ -71,7 +84,4 @@ public class Utils {
 	private static void fluentWaitByExpectedCondition(ExpectedCondition waitCondition) {
 	    wait.until(waitCondition);
 	}
-	
-	
-
 }

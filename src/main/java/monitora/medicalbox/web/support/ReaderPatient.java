@@ -9,13 +9,13 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
-public class Reader{
+public class ReaderPatient{
 
     private String path;
     private String split;
     private String line;
 
-    public Reader(String path, String split, String line){
+    public ReaderPatient(String path, String split, String line){
         this.path = path;
         this.split = split;
         this.line = line;
@@ -84,7 +84,7 @@ public class Reader{
         String csvFile = "src/main/resources/planilha/Pacientes_Barizza_Prontos.csv";
         String line = "";
         String cvsSplitBy = ";";
-        Reader reader = new Reader(csvFile, cvsSplitBy, line);
+        ReaderPatient reader = new ReaderPatient(csvFile, cvsSplitBy, line);
         try {
             reader.readCsv();
             

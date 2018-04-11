@@ -1,10 +1,13 @@
 package monitora.medicalbox.web.po;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import monitora.medicalbox.web.support.Utils;
 
@@ -99,9 +102,20 @@ public class NewPacientPageObject {
 	@FindBy(xpath = "//div[@ng-show='showAll']//button[contains(text(),'Salvar')]")
 	WebElement btnSalvePacient;
 	
-	//ConcluidoMsg
+	//Botão Cancelar
+	@FindBy(xpath = "//div[@ng-show='showAll']//a[contains(text(),'Cancelar')]")
+	WebElement btnCancelPacient;
+	
+	//Msg Paciente Existe
 	@FindBy(xpath = "//div[@class='noty_bar noty_type_error']")
-	WebElement txtErrorCPF;
+	WebElement msgPatientExist;
+	
+	//Msg CPF inválido
+	@FindBy(xpath = "//div[@class='person_cpfformError parentFormundefined formError']")
+	WebElement msgCPFinvalid;
+	
+	
+	
 	
 	public NewPacientPageObject(WebDriver driver) {
 		PageFactory.initElements(driver, this);
@@ -142,6 +156,10 @@ public class NewPacientPageObject {
 	public void fillCpfPacient(String cpf) {
 		Integer cpflength = cpf.length();
 		if (cpflength.equals(11))txtCpfPacient.sendKeys(cpf);
+	}
+	
+	public void clearCpfPacient() {
+		txtCpfPacient.clear();
 	}
 	
 	public void fillProfessionPacient(String profession) {
@@ -209,8 +227,26 @@ public class NewPacientPageObject {
 		Utils.waitForSplashInvisibility();
 	}
 	
-	public String gettxtmessageSuccess() {
-		return txtErrorCPF.getText();
+	public void clickBtnCancelPacient() {
+		btnCancelPacient.click();
+		Utils.waitForSplashInvisibility();
 	}
 	
+	public Boolean getmessagepacientexistent() {
+			try {
+				Boolean ReturnMesg = msgPatientExist.isDisplayed();
+				return ReturnMesg;
+			}catch(NoSuchElementException ex){
+				return false;
+			}
+	}
+	public Boolean getmsgCPFinvalid() {
+		try {
+		Boolean ReturnMesg = msgCPFinvalid.isDisplayed();
+		return ReturnMesg;
+	}catch(NoSuchElementException ex){
+		return false;
+	}
+ }
 }
+	

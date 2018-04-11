@@ -2,21 +2,18 @@ package monitora.medicalbox.web.scripts;
 
 import java.net.MalformedURLException;
 import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-
 import monitora.medicalbox.web.support.Patient;
-import monitora.medicalbox.web.support.Reader;
+import monitora.medicalbox.web.support.ReaderPatient;
 import monitora.medicalbox.web.support.Utils;
-import monitora.medicalbox.web.po.LoginPageObject;
 import monitora.medicalbox.web.po.MainScreenPageObject;
 import monitora.medicalbox.web.po.NewPacientPageObject;
-import monitora.medicalbox.web.po.PacientPageObject;
+import monitora.medicalbox.web.po.PatientPageObject;
 
-public class MedicalBoxNewPacientTest {
+public class NewPacientTest {
 	
 	private WebDriver driver;
     private String csvFile = "src/main/resources/planilha/Pacientes_Barizza_Prontos.csv";
@@ -32,14 +29,7 @@ public class MedicalBoxNewPacientTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		driver.get("https://qa.medicalbox.com.br/");
-		driver.manage().window().maximize();
-		
-		LoginPageObject login = new LoginPageObject(driver);
-		login.fillEmailLogin("helidalu.oliveira@gmail.com");
-		login.fillPasswordLogin("1234");
-		login.clickBtnLogin();
-		
+        Utils.login(driver);
 	}
 	
 	@After
@@ -51,35 +41,25 @@ public class MedicalBoxNewPacientTest {
 	public void testPacients() {
 				
 	    MainScreenPageObject mainscreen = new MainScreenPageObject(driver);
-	    mainscreen.clickBtnPacients();
-		
-		PacientPageObject pacients = new PacientPageObject(driver);
+		PatientPageObject patients = new PatientPageObject(driver);
 		NewPacientPageObject newpacient = new NewPacientPageObject(driver);
 		
-		Reader reader = new Reader(csvFile, cvsSplitBy, line);
+	    mainscreen.clickBtnPacients();
+				
+		ReaderPatient reader = new ReaderPatient(csvFile, cvsSplitBy, line);
 		int count = 0;
 		try {
 			List<Patient> pacientes = reader.readCsv();
 			for(Patient patient:pacientes) {
 				if(count >= 10) {
 					driver.manage().deleteAllCookies();
-					driver.get("https://qa.medicalbox.com.br/");
-					driver.manage().window().maximize();
+					Utils.login(driver);
 					
-					LoginPageObject login = new LoginPageObject(driver);
-					login.fillEmailLogin("helidalu.oliveira@gmail.com");
-					login.fillPasswordLogin("1234");
-					login.clickBtnLogin();
-					
-					mainscreen = new MainScreenPageObject(driver);
 					mainscreen.clickBtnPacients();
-					
-					//PacientPageObject pacients = new PacientPageObject(driver);
-					newpacient = new NewPacientPageObject(driver);
 					
 					count = 0;
 				}
-				pacients.clickBtnNewPacient();
+				patients.clickBtnNewPatient();
 				newpacient.clickExpandirData();
 				
 				//General Data
@@ -108,23 +88,31 @@ public class MedicalBoxNewPacientTest {
 				newpacient.filltxtObs(patient.getObs());
 						
 				newpacient.clickBtnSalvePacient();
-				/*try {
-					assertEquals("Concluído!", pacients.gettxtmessageSuccess());
-					System.out.println("Paciente cadastrado com sucesso: " + patient.getName());
-				}catch(AssertionError e){
-					System.out.println("Paciente não cadastrado com sucesso: " + patient.getName());
-					}*/
 				
-				Utils.waitForSuccessMessage();
-				System.out.println("Paciente cadastrado com sucesso: " + patient.getName());
-								
+//				if(("Concluído!".equals(pacients.gettxtmessageSuccess().toString()))){
+				if(patients.getmessageSuccess()){
+					System.out.println("Paciente cadastrado com sucesso: " + patient.getName());
+				}else { 
+					//if(("ERRO 1097 - O CPF inserido já existe e está em uso.".equals(newpacient.gettxtmessagepacientexistent().toString()))){
+					if(newpacient.getmessagepacientexistent()){
+						newpacient.clickBtnCancelPacient();
+						System.out.println("Paciente já cadastrado: " + patient.getName());	
+					}
+					
+					//if(("CPF inválido".equals(newpacient.gettxtmsgCPFinvalid().toString()))){
+					if(newpacient.getmsgCPFinvalid()){
+						newpacient.clearCpfPacient();
+						try {Thread.sleep(2000);}catch(Exception e) {e.printStackTrace();}
+						newpacient.clickBtnSalvePacient();
+						System.out.println("CPF do Paciente é inválido: " + patient.getName());	
+						}
+				}
+				
+				
+				Utils.waitForSuccessMessage();					
 				count++;
-				}	
-			
-		    } catch (Exception e) {
-            e.printStackTrace();
-        }
-		
+			}			
+	   } catch (Exception e) {e.printStackTrace();}
 	}
 	
 }

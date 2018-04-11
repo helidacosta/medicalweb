@@ -13,14 +13,17 @@ import monitora.medicalbox.web.support.Utils;
 
 public class MainScreenPageObject {
 	
+	@FindBy(xpath = "//div[@class='user-image text-center']//button[@class='btn btn-danger']")
+	WebElement btnRemovePatients;
+	
 	@FindBy(xpath = "//a[@href='/pacientes']")
 	WebElement btnPacients;
 	
 	@FindBy(className = "name-patient-menu-select")
 	WebElement txtPacients;
 	
-	@FindBy(id = "btnCalendar")
-	WebElement btnCalendar;
+	@FindBy(xpath = "//a[@href='/prontuario']")
+	WebElement btnMedicalRecords;
 	
 	
 	public MainScreenPageObject(WebDriver driver) {
@@ -28,8 +31,9 @@ public class MainScreenPageObject {
 		new WebDriverWait(driver, 5).until(ExpectedConditions.presenceOfElementLocated(By.className("name-patient-menu-select")));
 	}
 	
-	public void clickBtnCalendar() {
-		btnCalendar.click();
+	public void clickBtnMedicalRecords() {
+		btnMedicalRecords.click();
+		Utils.waitForSplashInvisibility();
 	}
 	
 	public String gettxtPacients() {
@@ -38,6 +42,11 @@ public class MainScreenPageObject {
 	
 	public void clickBtnPacients() {
 		btnPacients.click();
+		Utils.waitForSplashInvisibility();
+	}
+	
+	public void clickBtnRemovePacients() {
+		btnRemovePatients.click();
 		Utils.waitForSplashInvisibility();
 	}
 	
