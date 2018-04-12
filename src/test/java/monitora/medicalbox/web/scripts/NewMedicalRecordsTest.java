@@ -18,7 +18,7 @@ import monitora.medicalbox.web.support.Utils;
 public class NewMedicalRecordsTest {
 	
 	private WebDriver driver;
-    private String csvFile = "src/main/resources/planilha/Pacientes_Barizza_Prontos.csv";
+    private String csvFile = "src/main/resources/planilha/ProntuarioTest.csv";
     private String line = "";
     private String cvsSplitBy = ",";
     
@@ -43,25 +43,26 @@ public class NewMedicalRecordsTest {
 	public void testMedicalRecords() {
 	    MainScreenPageObject mainscreen = new MainScreenPageObject(driver);
 		PatientPageObject patients = new PatientPageObject(driver);
-		MedicalRecordsPageObject mrecords = new MedicalRecordsPageObject(driver);
+		MedicalRecordsPageObject medRecords = new MedicalRecordsPageObject(driver);
 	    
 		ReaderMRecords reader = new ReaderMRecords(csvFile, cvsSplitBy, line);
-		int count = 0;
 		try {
+			
 			List<MedicalRecords> MRecords = reader.readCsv();
-			for(MedicalRecords medicalrecords:MRecords) {
+			
+			for(MedicalRecords mrecords:MRecords) {
 					
 				mainscreen.clickBtnMedicalRecords();
-				patients.fillSearchPatient(medicalrecords.getName());
+				patients.fillSearchPatient(mrecords.getName());
 				patients.clickPatient();
 	    
-				if(mrecords.getBtnCreatePEP()){
-					mrecords.clickBtnCreatePEP();
+				if(medRecords.getBtnCreatePEP()){
+					medRecords.clickBtnCreatePEP();
 				}
 	    
-				mrecords.fillFreeText(medicalrecords.getFreetext());
-				mrecords.clickBtnConcluir();
-				mrecords.clickBtnSim();
+				medRecords.fillFreeText(mrecords.getFreetext());
+				medRecords.clickBtnConcluir();
+				medRecords.clickBtnSim();
 				
 				mainscreen.clickBtnRemovePacients();
 	    

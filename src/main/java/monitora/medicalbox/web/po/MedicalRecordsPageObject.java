@@ -25,6 +25,8 @@ public class MedicalRecordsPageObject {
 	@FindBy(xpath = "//div[@class='modal-footer']//button[contains(text(),'SIM')]")
 	WebElement btnSim;
 	
+	
+	
 	public MedicalRecordsPageObject(WebDriver driver) {
 		PageFactory.initElements(driver, this);
 	}

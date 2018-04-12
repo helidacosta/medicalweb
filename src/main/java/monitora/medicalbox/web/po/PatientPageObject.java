@@ -16,7 +16,7 @@ public class PatientPageObject
 	@FindBy(xpath = "//div[@class='input-group']//input")
 	WebElement searchPatient;
 	
-	@FindBy(xpath = "//table[@id='DataTables_Table_0']//td")
+	@FindBy(xpath = "//table[@class='table table-hover table-dynamic dataTable_pacientes no-footer dataTable']//td")
 	WebElement Patient;
 	
 	@FindBy(xpath = "//div[@class='dataTables_filter']//button")
@@ -32,7 +32,7 @@ public class PatientPageObject
 	
 	public  void fillSearchPatient(String patient) {
 		searchPatient.sendKeys(patient);
-		try {Thread.sleep(3000);}catch(Exception e) {e.printStackTrace();}
+		Utils.waitForInformationMsg();
 	}
 	
 	public void clickBtnNewPatient() {
@@ -43,6 +43,7 @@ public class PatientPageObject
 	public void clickPatient() {
 		Patient.click();
 		Utils.waitForSplashInvisibility();
+		
 	}
 
 

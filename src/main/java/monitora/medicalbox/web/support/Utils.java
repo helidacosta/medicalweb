@@ -75,6 +75,12 @@ public class Utils {
 	    fluentWaitByExpectedCondition(expectedCondition);
 	    }
 	
+	public static void waitForInformationMsg(){
+	    By loadIconLocator = By.xpath("//div[@class='noty_bar noty_type_information']");
+	    ExpectedCondition expectedCondition = ExpectedConditions.invisibilityOfElementLocated(loadIconLocator);
+	    fluentWaitByExpectedCondition(expectedCondition);
+	    }
+	
 	public static void waitForSuccessMessage(){
         By loadIconLocator = By.xpath("//div[@class='noty_bar noty_type_success']");
         ExpectedCondition expectedCondition = ExpectedConditions.invisibilityOfElementLocated(loadIconLocator);
