@@ -1,4 +1,4 @@
-package monitora.medicalbox.web.support;
+package monitora.medicalbox.web.support.mrecords;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -31,7 +31,7 @@ public class ReaderMRecords{
 //                System.out.println("Prontuario ["
 //                					+ "nome= " + mrecords[0] + " , getname=" + test.getName() + 
 //                					"Texto= " + mrecords[1] + " , getfreetext=" + test.getFreetext() + "]");
-//                System.out.println(test.toString());
+             System.out.println(test.toString());
                 
                //System.out.println("patient ["+"Numero= " + patient[12] + " , getnumber=" + test.getNumber() + "]" );
                //System.out.println("CPF: " + test.getCpf().length() );
@@ -43,7 +43,7 @@ public class ReaderMRecords{
         return list;
     }
     public static void main(String[] args) {
-        String csvFile = "src/main/resources/planilha/ProntuarioTest.csv";
+        String csvFile = "src/main/resources/planilha/PacientesTest.csv";
         String line = "";
         String cvsSplitBy = ",";
         ReaderMRecords reader = new ReaderMRecords(csvFile, cvsSplitBy, line);

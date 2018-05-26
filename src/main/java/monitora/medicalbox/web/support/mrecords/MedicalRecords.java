@@ -1,11 +1,11 @@
-package monitora.medicalbox.web.support;
+package monitora.medicalbox.web.support.mrecords;
 
 public class MedicalRecords {
 
 	private String name;
     private String freetext;
     
-    public MedicalRecords (String name, String freetext){
+    public MedicalRecords(String name, String freetext){
          this.name = name;
          this.freetext = freetext;
     }
@@ -25,4 +25,11 @@ public class MedicalRecords {
 	public void setFreetext(String freetext) {
 		this.freetext = freetext;
 	}    
+	
+	public String toString() {
+		return "paciente ["
+	            + "nome= " + this.getName() +
+	            " prontuario= " + this.freetext +
+	            "]";
+	}
 }

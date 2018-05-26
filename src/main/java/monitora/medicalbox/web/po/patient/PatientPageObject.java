@@ -1,4 +1,4 @@
-package monitora.medicalbox.web.po;
+package monitora.medicalbox.web.po.patient;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -22,9 +22,13 @@ public class PatientPageObject
 	@FindBy(xpath = "//div[@class='dataTables_filter']//button")
 	WebElement btnNewPatient;
 	
+	
+	@FindBy(xpath = "//div[@class='summaryButtons']//div[@class='col-md-3 receiveBackgroundThemeColorOnHover gaSend']//p[contains(text(),'Ficha do paciente')]")
+	WebElement btnFicPatient;
+	
 	//ConcluidoMsg
 	@FindBy(xpath = "//div[@class='noty_bar noty_type_success']")
-	WebElement MsgSuccess;
+	static WebElement MsgSuccess;
 	
 	public PatientPageObject(WebDriver driver) {
 		PageFactory.initElements(driver, this);
@@ -43,11 +47,15 @@ public class PatientPageObject
 	public void clickPatient() {
 		Patient.click();
 		Utils.waitForSplashInvisibility();
-		
+	}
+	
+	public void clickFicPatient() {
+		btnFicPatient.click();
+		Utils.waitForSplashInvisibility();
 	}
 
 
-	public Boolean getmessageSuccess() {
+	public static Boolean getmessageSuccess() {
 		try {
 			Boolean ReturnMesg = MsgSuccess.isDisplayed();
 			return ReturnMesg;

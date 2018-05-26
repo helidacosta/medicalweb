@@ -55,12 +55,12 @@ public class Utils {
 	}
 	
 	public static void login(WebDriver driver){
-		driver.get("https://qa.medicalbox.com.br/");
+		driver.get("https://app.medicalbox.com.br/");
 		driver.manage().window().maximize();
 		
 		LoginPageObject login = new LoginPageObject(driver);
-		login.fillEmailLogin("helidalu.oliveira@gmail.com");
-		login.fillPasswordLogin("1234");
+		login.fillEmailLogin("claudio.rioliv@gmail.com");
+		login.fillPasswordLogin("Audrey67");
 		login.clickBtnLogin();
     }
 		

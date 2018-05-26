@@ -1,4 +1,4 @@
-package monitora.medicalbox.web.po;
+package monitora.medicalbox.web.po.mainscreen;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,7 +16,7 @@ public class MainScreenPageObject {
 	@FindBy(xpath = "//div[@class='user-image text-center']//button[@class='btn btn-danger']")
 	WebElement btnRemovePatients;
 	
-	@FindBy(xpath = "//a[@href='/pacientes']")
+	@FindBy(xpath = "//ul[@id='sidebarMenu']//li[@data-menuitem-name='Pacientes']//a[@href='/pacientes']")
 	WebElement btnPacients;
 	
 	@FindBy(className = "name-patient-menu-select")

@@ -1,4 +1,4 @@
-package monitora.medicalbox.web.scripts;
+package monitora.medicalbox.web.scripts.importa;
 
 import java.net.MalformedURLException;
 import java.util.List;
@@ -8,12 +8,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 
-import monitora.medicalbox.web.po.MainScreenPageObject;
 import monitora.medicalbox.web.po.MedicalRecordsPageObject;
-import monitora.medicalbox.web.po.PatientPageObject;
-import monitora.medicalbox.web.support.ReaderMRecords;
-import monitora.medicalbox.web.support.MedicalRecords;
+import monitora.medicalbox.web.po.mainscreen.MainScreenPageObject;
+import monitora.medicalbox.web.po.patient.PatientPageObject;
 import monitora.medicalbox.web.support.Utils;
+import monitora.medicalbox.web.support.mrecords.MedicalRecords;
+import monitora.medicalbox.web.support.mrecords.ReaderMRecords;
 
 public class NewMedicalRecordsTest {
 	

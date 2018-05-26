@@ -1,4 +1,4 @@
-package monitora.medicalbox.web.support;
+package monitora.medicalbox.web.support.patient;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -45,7 +45,17 @@ public class ReaderPatient{
                 		patient[14],
                 		patient[15],
                 		patient[16],
-                		patient[17]);
+                		patient[17],
+                		patient[18],
+                		patient[19],
+                		patient[20],
+                		patient[21],
+                		patient[22],
+                		patient[23],
+                		patient[24],
+                		patient[25],
+                		patient[26],
+                		patient[27]);
                 
                 list.add(test);
 //                System.out.println("patient ["
@@ -69,7 +79,7 @@ public class ReaderPatient{
 //                "Obs= " + patient[17] + " , getobs=" + test.getObs() +
 //                		
 //                		"]");
-              //System.out.println(test.toString());
+              System.out.println(test.toString());
                 
                //System.out.println("patient ["+"Numero= " + patient[12] + " , getnumber=" + test.getNumber() + "]" );
                 //System.out.println("CPF: " + test.getCpf().length() );
@@ -83,7 +93,7 @@ public class ReaderPatient{
     public static void main(String[] args) {
         String csvFile = "src/main/resources/planilha/Pacientes_Barizza_Prontos.csv";
         String line = "";
-        String cvsSplitBy = ";";
+        String cvsSplitBy = ",";
         ReaderPatient reader = new ReaderPatient(csvFile, cvsSplitBy, line);
         try {
             reader.readCsv();
