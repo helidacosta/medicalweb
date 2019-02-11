@@ -30,6 +30,11 @@ public class PatientPageObject
 	@FindBy(xpath = "//div[@class='noty_bar noty_type_success']")
 	static WebElement MsgSuccess;
 	
+	
+	//ConcluidoMsg
+	@FindBy(xpath = "//div[@class='noty_message//span[contains(text(),'O paciente foi excluído.')]")
+	static WebElement MsgSuccessExcluir;
+	
 	public PatientPageObject(WebDriver driver) {
 		PageFactory.initElements(driver, this);
 	}
@@ -63,7 +68,14 @@ public class PatientPageObject
 			return false;
 		}
 		
-		
-		    
 	}
+		
+		public static Boolean getmessageSuccessExcluir() {
+			try {
+				Boolean ReturnMesg = MsgSuccessExcluir.isDisplayed();
+				return ReturnMesg;
+			}catch(NoSuchElementException ex){
+				return false;
+			}
+	    }
 }

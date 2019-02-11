@@ -1,4 +1,4 @@
-package monitora.medicalbox.web.scripts.importa;
+package monitora.medicalbox.web.scripts.sanity;
 
 import java.net.MalformedURLException;
 import java.util.List;

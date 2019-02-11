@@ -24,6 +24,9 @@ public class NewPacientPageObject {
 	@FindBy(xpath = "//div[contains(@ng-if,'Dados gerais')]//input[@name='person.name']")
 	WebElement txtNamePacient;
 	
+	@FindBy(xpath = "//div[contains(@class,'ng-scope')]//input[@name='person.name']")
+	WebElement txtNamePacientEdit;
+	
 	@FindBy(xpath = "//div[contains(@ng-if,'Dados gerais')]//input[@name='person.birth']")
 	WebElement txtBirthPacient;
 	
@@ -54,6 +57,9 @@ public class NewPacientPageObject {
 	@FindBy(xpath = "//div[contains(@ng-if,'Dados gerais')]//input[@name='person.cpf']")
 	WebElement txtCpfPacient;
 	
+	@FindBy(xpath = "//div[contains(@ng-switch-when,'Dados gerais')]//input[@name='person.cpf']")
+	WebElement txtCpfPacientEdit;
+	
 	@FindBy(xpath = "//div[contains(@ng-if,'Dados gerais')]//input[@name='profession']")
 	WebElement txtProfessionPacient;
 	
@@ -70,6 +76,9 @@ public class NewPacientPageObject {
 	
 	@FindBy(xpath = "//div[contains(@ng-if,'Dados gerais')]//input[@name='cellPhone']")
 	WebElement txtCellphone;
+	
+	@FindBy(xpath = "//div[contains(@ng-switch-when,'phone')]//input[@name='cellPhone']")
+	WebElement txtCellphoneEdit;
 	
 	@FindBy(xpath = "//div[contains(@ng-if,'Dados gerais')]//input[@name='person.email']")
 	WebElement txtEmail;
@@ -103,7 +112,7 @@ public class NewPacientPageObject {
 	WebElement txtComplement;
 	
 	//Health Plan
-	@FindBy(xpath = "//div[contains(@ng-if,'Dados gerais')]//select[@name='agreementPlanOfCard']//option[@value='14']")
+	@FindBy(xpath = "//div[contains(@ng-if,'Dados gerais')]//input[@name='agreementPlan']")
 	WebElement txtHealthplan;
 	
 	@FindBy(xpath = "//div[contains(@ng-if,'Dados gerais')]//input[@name='agreementCard[0][code]']")
@@ -133,21 +142,42 @@ public class NewPacientPageObject {
 	@FindBy(xpath = "//div[contains(@ng-if,'Dados gerais')]//input[@name='code']")
 	WebElement txtCodigo;
 	
+	@FindBy(xpath = "//div[contains(@class,'ng-scope')]//input[@name='code']")
+	WebElement txtCodigoEdit;
+	
 	@FindBy(xpath = "//div[contains(@ng-if,'Dados gerais')]//textarea[@name='observation']")
 	WebElement txtObservation;
+	
+	@FindBy(xpath = "//div[contains(@class,'ng-scope')]//textarea[@name='observation']")
+	WebElement txtObservationEdit;
 	
 	@FindBy(xpath = "//div[contains(@ng-if,'Dados gerais')]//label[@class='checkbox-inline']//span[contains(text(),'Evidenciar Paciente')]")
 	WebElement chkEvidenciarPac;
 	
+	@FindBy(xpath = "//div[contains(@class,'ng-scope')]//label[@class='checkbox-inline']//span[contains(text(),'Evidenciar Paciente')]")
+	WebElement chkEvidenciarPacEdit;
+	
 	@FindBy(xpath = "//div[@ng-switch-when='button']//button[contains(text(),'Excluir paciente')]")
 	WebElement btnExcPatient;
 	
+	@FindBy(xpath = "//div[@class='modal-footer']//button[@class='btn btn-primary confirmDelete']")
+	WebElement btnSimExcPatient;
+	
+	@FindBy(xpath = "//div[@class='modal-footer']//button[@class='btn btn-default']")
+	WebElement btnNaoExcPatient;
+	
 	//Botão Salvar
-	@FindBy(xpath = "//div[@ng-show='showAll']//button[contains(text(),'Salvar')]")
+	@FindBy(xpath = "//div[@ng-show='!showAll']//button[contains(text(),'Salvar')]")
 	WebElement btnSalvePacient;
+	
+	@FindBy(xpath = "//div[@ng-show='showAll']//button[contains(text(),'Salvar')]")
+	WebElement btnSalvePacientAll;
 	
 	//Botão Cancelar
 	@FindBy(xpath = "//div[@ng-show='showAll']//a[contains(text(),'Cancelar')]")
+	WebElement btnCancelPacientAll;
+	
+	@FindBy(xpath = "//div[@ng-show='!showAll']//button[contains(text(),'Cancelar')]")
 	WebElement btnCancelPacient;
 	
 	//Msg Paciente Existe
@@ -161,6 +191,19 @@ public class NewPacientPageObject {
 	//Msg campo obrigatório
 	@FindBy(xpath = "//div[@class='person_nameformError parentFormformCreatePatient formError']")
 	WebElement msgCampoObr;
+	
+	//Msg impossivel excluir
+	@FindBy(xpath = "//div[@class='noty_message']")
+	WebElement msgImpoExcluir;
+	
+	//Msg impossivel excluir botão cancelar
+	@FindBy(xpath = "//div[@class='noty_buttons']//button[contains(text(),'Cancelar')]")
+	WebElement msgImpoExcluirBtnCancel;
+	
+	//Msg impossivel excluir botão exibir
+	@FindBy(xpath = "//div[@class='noty_buttons']//button[contains(text(),'Exibir prontuários')]")
+	WebElement msgImpoExcluirBtnExibir;
+	
 	
 	public NewPacientPageObject(WebDriver driver) {
 		PageFactory.initElements(driver, this);
@@ -177,7 +220,7 @@ public class NewPacientPageObject {
 	}
 	
 	public String getNamePacient() {
-		String name = txtNamePacient.getText();
+		String name = txtNamePacientEdit.getText();
 		return name;
 	}
 	
@@ -209,6 +252,12 @@ public class NewPacientPageObject {
 		if (cpflength.equals(11))txtCpfPacient.sendKeys(cpf);
 	}
 	
+	public void fillCpfPacientEdit(String cpf) {
+		Integer cpflength = cpf.length();
+		txtCpfPacientEdit.clear();
+		if (cpflength.equals(11))txtCpfPacientEdit.sendKeys(cpf);
+	}
+	
 	public void clearCpfPacient() {
 		txtCpfPacient.clear();
 	}
@@ -238,6 +287,11 @@ public class NewPacientPageObject {
 	public void filltxtCellphone(String cellphone) {
 		txtCellphone.clear();
 		txtCellphone.sendKeys(cellphone);
+	}
+	
+	public void filltxtCellphoneEdit(String cellphone) {
+		txtCellphoneEdit.clear();
+		txtCellphoneEdit.sendKeys(cellphone);
 	}
 	
 	public void filltxtTEmail(String email) {
@@ -291,6 +345,11 @@ public class NewPacientPageObject {
 		txtCodigo.sendKeys(codigo);
 	}
 	
+	public void filltxtCodigoEdit(String codigo) {
+		txtCodigoEdit.clear();
+		txtCodigoEdit.sendKeys(codigo);
+	}
+	
 	//MoreInformation
 	
 	public void clickmenuOthersInfo() {
@@ -313,17 +372,61 @@ public class NewPacientPageObject {
 		txtObservation.sendKeys(obs);
 	}
 	
+	public void filltxtObsEdit(String obs) {
+		txtObservationEdit.sendKeys(obs);
+	}
+	
 	public void setEvidenciaPac() {
 		chkEvidenciarPac.click();
+	}
+	
+	public void setEvidenciaPacEdit() {
+		chkEvidenciarPacEdit.click();
 	}
 	
 	public void clickBtnExcluirPaciente() {
 		btnExcPatient.click();
 	}
 	
+	public void clickBtnSimExcluirPaciente(String name) {
+		btnSimExcPatient.click();
+		if(getmsgImpossExcluir()){
+    		System.out.println("Paciente Não pode ser excluído porque existe prontuários");
+    		clickBtnCancelImpossPatient();
+			}
+		if(PatientPageObject.getmessageSuccessExcluir()) {
+			System.out.println("Paciente " + name + "excluído com sucesso!!");
+		}
+		Utils.waitForSuccessExcluirMessage();
+			Utils.waitForSuccessMessage();
+	}
+	
+	public void clickBtnNaoExcluirPaciente() {
+		btnNaoExcPatient.click();
+		Utils.waitForSplashInvisibility();
+	}
+	
+	public void clickBtnCancelImpossPatient() {
+		msgImpoExcluirBtnCancel.click();
+		Utils.waitForSplashInvisibility();
+	}
+	
 	//Salve Button
 	public void clickBtnSalvePacient(String name) {
+		
 		btnSalvePacient.click();
+		Utils.waitForSplashInvisibility();
+
+		if(PatientPageObject.getmessageSuccess()){
+    		System.out.println("Paciente salvo com sucesso " + name);
+			}else { //step31
+				errorMsgPat(name);
+			}		
+	}
+	
+	//Salve Button ALL
+	public void clickBtnSalvePacientAll(String name) {
+		btnSalvePacientAll.click();
 		Utils.waitForSplashInvisibility();
 		
 		if(PatientPageObject.getmessageSuccess()){
@@ -331,10 +434,16 @@ public class NewPacientPageObject {
 			}else { //step31
 				errorMsgPat(name);
 			}
+		Utils.waitForSplashInvisibility();
 	}
 	
 	public void clickBtnCancelPacient() {
 		btnCancelPacient.click();
+		Utils.waitForSplashInvisibility();
+	}
+	
+	public void clickBtnCancelPacientAll() {
+		btnCancelPacientAll.click();
 		Utils.waitForSplashInvisibility();
 	}
 	
@@ -365,22 +474,38 @@ public class NewPacientPageObject {
 	    }
     }
 	
+	public Boolean getmsgImpossExcluir() {
+		try {
+			Boolean ReturnMesg = msgImpoExcluir.isDisplayed();
+			return ReturnMesg;
+		}catch(NoSuchElementException ex){
+		return false;
+	    }
+    }
+	
 	public void errorMsgPat(String name){
 		
 		if(getmsgCampoObg()){
   			try {Thread.sleep(2000);}catch(Exception e) {e.printStackTrace();}
-  			System.out.println("Campo Obrigatório é requerido: " + name);	
+  			System.out.println("Campo Obrigatório é requerido ");	
   			}
 		
 		if(getmessagepacientexistent()){
-		    clickBtnCancelPacient();
+		    clickBtnCancelPacientAll();
 		    System.out.println("Paciente já cadastrado: " + name);
 	    }
 	
 		if(getmsgCPFinvalid()){
 			clearCpfPacient();
 			try {Thread.sleep(2000);}catch(Exception e) {e.printStackTrace();}
-				clickBtnSalvePacient(name);
+				clickBtnSalvePacientAll(name);
+				System.out.println("CPF do Paciente é inválido: " + name);
+		}
+		
+		if(getmsgCPFinvalid()){
+			clearCpfPacient();
+			try {Thread.sleep(2000);}catch(Exception e) {e.printStackTrace();}
+				clickBtnSalvePacientAll(name);
 				System.out.println("CPF do Paciente é inválido: " + name);
 		}
 	}

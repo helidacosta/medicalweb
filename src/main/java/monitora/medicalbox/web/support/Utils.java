@@ -55,12 +55,12 @@ public class Utils {
 	}
 	
 	public static void login(WebDriver driver){
-		driver.get("https://app.medicalbox.com.br/");
+		driver.get("https://qa.medicalbox.com.br/");
 		driver.manage().window().maximize();
 		
 		LoginPageObject login = new LoginPageObject(driver);
-		login.fillEmailLogin("claudio.rioliv@gmail.com");
-		login.fillPasswordLogin("Audrey67");
+		login.fillEmailLogin("helidalu.oliveira@gmail.com");
+		login.fillPasswordLogin("1234");
 		login.clickBtnLogin();
     }
 		
@@ -83,6 +83,12 @@ public class Utils {
 	
 	public static void waitForSuccessMessage(){
         By loadIconLocator = By.xpath("//div[@class='noty_bar noty_type_success']");
+        ExpectedCondition expectedCondition = ExpectedConditions.invisibilityOfElementLocated(loadIconLocator);
+        fluentWaitByExpectedCondition(expectedCondition);
+    }
+	
+	public static void waitForSuccessExcluirMessage(){
+        By loadIconLocator = By.xpath("//div[@class='noty_message//span']button[contains(text(),'O paciente foi excluído.')]");
         ExpectedCondition expectedCondition = ExpectedConditions.invisibilityOfElementLocated(loadIconLocator);
         fluentWaitByExpectedCondition(expectedCondition);
     }

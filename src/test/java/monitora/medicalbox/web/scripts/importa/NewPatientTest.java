@@ -85,7 +85,7 @@ public class NewPatientTest {
 				newpacient.filltxtCodigo(patient.getCodigo());
 				newpacient.setEvidenciaPac();
 				
-				newpacient.clickBtnSalvePacient(patient.getName());
+				newpacient.clickBtnSalvePacientAll(patient.getName());
 				
 				if(patient.getMrecords() != "NULL") {
 				mainscreen.clickBtnMedicalRecords();

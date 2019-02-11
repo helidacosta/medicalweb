@@ -6,6 +6,7 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 import monitora.medicalbox.web.po.mainscreen.MainScreenPageObject;
@@ -18,7 +19,7 @@ import monitora.medicalbox.web.support.patient.ReaderPatient;
 public class NewPatientSanity {
 	
 	private WebDriver driver;
-    private String csvFile = "src/main/resources/planilha/Pacientes_Barizza_Prontos.csv";
+    private String csvFile = "src/main/resources/planilha/PacientesTest.csv";
     private String line = "";
     private String cvsSplitBy = ",";
 
@@ -48,6 +49,14 @@ public class NewPatientSanity {
 		
 		//step2
 		mainscreen.clickBtnPacients();
+	    //step3
+	    patients.clickBtnNewPatient();
+	    
+	    //step4
+	  	newpacient.clickBtnSalvePacient(newpacient.getNamePacient());
+	  	
+	  	newpacient.clickBtnCancelPacient();
+	  		
 		
 		ReaderPatient reader = new ReaderPatient(csvFile, cvsSplitBy, line);
 		int count = 0;
@@ -58,10 +67,7 @@ public class NewPatientSanity {
 			    //step3
 			    patients.clickBtnNewPatient();
 			    
-			    //step4
-			  		newpacient.clickBtnSalvePacient(patient.getName());
-			  		
-			    
+		
 			    //step5
 				newpacient.clickExpandirData();
 									
@@ -115,7 +121,7 @@ public class NewPatientSanity {
 										patient.getAddress(), 
 										patient.getNumber(), 
 										patient.getComplement());
-				//Health plan
+				/*Health plan
 				//step21
 				newpacient.filltxtHealthplan(patient.getShealth());
 				
@@ -130,7 +136,7 @@ public class NewPatientSanity {
 				
 				//step25
 				newpacient.filltxtObshealthplan(patient.getObsshealth());
-				
+				*/
 				//More Information
 				//step26
 				newpacient.filltxtFirstCons(patient.getFirstcon());
@@ -144,37 +150,58 @@ public class NewPatientSanity {
 				//step29
 				newpacient.filltxtObs(patient.getObs());
 				
-				
-				newpacient.clickBtnSalvePacient(newpacient.getNamePacient());
+		
+				newpacient.clickBtnSalvePacientAll(patient.getName());
      			Utils.waitForSuccessMessage();					
 		   }
 		} catch (Exception e) {e.printStackTrace();}
+		
+		
+	  	
 		//step33
-		patients.fillSearchPatient("30298635810");
+		patients.fillSearchPatient("35182138148");
 		//step34
 		patients.clickPatient();
 		//step35
 		patients.clickFicPatient();
 		
+		//step36
 		newpacient.clickmenuDataPessoais();
-		newpacient.fillCpfPacient("30298635810");
+		newpacient.fillCpfPacientEdit("82484843194");
 		newpacient.clickmenuContacts();
-		newpacient.filltxtCellphone("16996558552");
+		newpacient.filltxtCellphoneEdit("16996558552");
 		newpacient.clickmenuOthersInfo();
-		newpacient.filltxtCodigo("250");
-		
+		newpacient.filltxtCodigoEdit("250");
+
 		newpacient.clickBtnSalvePacient(newpacient.getNamePacient());
 		Utils.waitForSuccessMessage();
 		
-		patients.fillSearchPatient("30298635810");
-		//step34
+
+		//step37
+		patients.fillSearchPatient("44518928644");
+		//step38
 		patients.clickPatient();
-		//step35
+		//step39
 		patients.clickFicPatient();
 		newpacient.clickmenuOthersInfo();
+		//newpacient.setEvidenciaPacEdit();
+		((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
 		newpacient.clickBtnExcluirPaciente();
 		
-		patients.fillSearchPatient("30298635810");
+		//step40
+		try {Thread.sleep(2000);}catch(Exception e) {e.printStackTrace();}
+		newpacient.clickBtnNaoExcluirPaciente();
+		
+		//step41
+		try {Thread.sleep(2000);}catch(Exception e) {e.printStackTrace();}
+		newpacient.clickBtnExcluirPaciente();
+		
+		//step42
+		try {Thread.sleep(2000);}catch(Exception e) {e.printStackTrace();}
+		newpacient.clickBtnSimExcluirPaciente(newpacient.getNamePacient());
+		
+		//step43
+		patients.fillSearchPatient("44518928644");
 		
 	}
 }
